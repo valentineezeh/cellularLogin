@@ -34,6 +34,7 @@ export function logout() {
 }
 
 export const userLoginRequest = (userLoginData) => {
+    console.log('==>', userLoginData)
     return (dispatch) => {
         return axios.post('http://localhost:8009/api/user/login/', userLoginData).then(
             res => {

@@ -1,3 +1,3 @@
 export default {
-    apiUrl: process.env.NODE_ENV === "production" ? "" : "http://localhost:8009"
+    apiUrl: process.env.NODE_ENV === "production" ? "" : "http://localhost:8009/api"
 };

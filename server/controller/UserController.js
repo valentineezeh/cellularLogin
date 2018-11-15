@@ -1,16 +1,18 @@
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import { Op } from "sequelize";
 import db from "../database/models";
 
 dotenv.config();
 
 const { User } = db;
 
-console.log('-->', User)
 const secret = process.env.SECRET_KEY;
 
+/**
+ * @class UserController
+ *
+ */
 class UserController {
   /**
    * Register a user and return a JWT token
@@ -30,6 +32,7 @@ class UserController {
     })
       .then(user => {
         if (user) {
+          console.log('===>', user)
           if (bcrypt.compareSync(password, user.password)) {
             const token = jwt.sign(
               {
