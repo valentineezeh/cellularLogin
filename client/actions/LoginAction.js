@@ -1,7 +1,13 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+import swal from 'sweetalert';
 import config from '../config';
-import { SET_CURRENT_USER } from './types.js';
+import {
+    SET_CURRENT_USER,
+    SIGN_UP_ERRORS,
+    DELETE_ERROR_MESSAGE
+
+} from './types.js';
 import setAuthorizationToken from '../utils/setAuthorizationToken.js';
 
 export function setCurrentUser(user) {
@@ -11,6 +17,15 @@ export function setCurrentUser(user) {
     };
 }
 
+export const deleteErrorMessageSuccess = () => ({
+    type: DELETE_ERROR_MESSAGE,
+});
+
+export const signUpError = error => ({
+    type: SIGN_UP_ERRORS,
+    error
+});
+
 export function logout() {
     return dispatch => {
         localStorage.removeItem('jwtToken');
@@ -19,15 +34,22 @@ export function logout() {
     };
 }
 
-export function userLoginRequest(userLoginData) {
+export const userLoginRequest = (userLoginData) => {
     return (dispatch) => {
-        return axios.post(`${config.apiUrl}/api/v1/auth/login`, userLoginData).then(
+        return axios.post('http://localhost:8009/api/user/login/', userLoginData).then(
             res => {
-                const token = res.data.data;
+                console.log('login success', res.data.user.token);
+                const token = res.data.user.token;
+                const message = res.data.message;
+
+                swal(message);
                 localStorage.setItem('jwtToken', token);
+                localStorage.setItem('user', JSON.stringify(jwt.decode(token)));
                 setAuthorizationToken(token);
                 dispatch(setCurrentUser(jwt.decode(token)));
             }
-        );
+        ).catch((error) => {
+            dispatch(signUpError(error.response.data));
+        });
     };
-}
+};

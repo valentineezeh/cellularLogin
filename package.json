@@ -82,6 +82,7 @@
     "shortid": "^2.2.13",
     "style-loader": "^0.23.0",
     "supertest": "^3.0.0",
+    "sweetalert": "^2.1.2",
     "toastr": "^2.1.4",
     "validator": "^10.4.0",
     "validatorjs": "^3.15.1"
