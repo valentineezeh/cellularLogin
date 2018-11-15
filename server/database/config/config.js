@@ -1,18 +1,21 @@
-require('dotenv') config();
+const dotenv = require("dotenv");
+dotenv.config();
 
- module.exports = {
+module.exports = {
   development: {
+    username: process.env.USER,
     database: process.env.DBNAME,
     password: process.env.DBPASSWORD,
     host: process.env.HOST,
-    port: process.env.PORT,
+    port: process.env.DBPORT,
     dialect: process.env.DIALECT
   },
   test: {
+    username: process.env.USER,
     database: process.env.DBTEST,
     password: process.env.DBPASSWORD,
     host: process.env.HOST,
-    port: process.env.PORT,
+    port: process.env.DBPORT,
     dialect: process.env.DIALECT
   },
   production: {
@@ -20,4 +23,3 @@ require('dotenv') config();
     dialect: process.env.DIALECT
   }
 };
-

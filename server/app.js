@@ -2,8 +2,8 @@
 import express from "express";
 import logger from "morgan";
 import bodyParser from "body-parser";
-import path from "path";
 import cors from "cors";
+import router from "./routes/index";
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors());
 
-// app.use('/', router);
+app.use("/", router);
 
 const port = +process.env.PORT || 8009;
 app.set("port", port);
