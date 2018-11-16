@@ -9,12 +9,20 @@ import {
 } from './types.js';
 import setAuthorizationToken from '../utils/setAuthorizationToken.js';
 
-export function setCurrentUser(user) {
+export const setCurrentUser = (user) => {
     return {
         type: SET_CURRENT_USER,
         user
     };
 }
+
+export const logout = () => {
+    return dispatch => {
+        localStorage.clear();
+        setAuthorizationToken(false);
+        dispatch(setCurrentUser({}));
+    };
+};
 
 export const deleteErrorMessageSuccess = () => ({
     type: DELETE_ERROR_MESSAGE,
@@ -25,13 +33,6 @@ export const signUpError = error => ({
     error
 });
 
-export function logout() {
-    return dispatch => {
-        localStorage.removeItem('jwtToken');
-        setAuthorizationToken(false);
-        dispatch(setCurrentUser({}));
-    };
-}
 
 export const userLoginRequest = (userLoginData) => {
     return (dispatch) => {

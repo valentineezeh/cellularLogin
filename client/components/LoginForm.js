@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { userLoginRequest, deleteErrorMessageSuccess } from "../actions/LoginAction";
+import { socialLoginSubmit } from '../actions/SocialLoginAction';
 import TextField from './TextField';
 import validateInput from "../middleware/userInputValidation";
 import AlertNotification from './AlertNotification';
+import SocialLogin from './socialLogin/SocialLogin';
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -117,11 +119,7 @@ class LoginForm extends React.Component {
                                     name="login">Login</button>
                             </div>
                         </form>
-                        <div className="form__foot">
-                            <button className="social__login" type="button">
-                                Login with google
-          </button>
-                        </div>
+                        <SocialLogin />
                     </div>
                 </div>
             </div>
@@ -133,6 +131,8 @@ class LoginForm extends React.Component {
 
 LoginForm.propTypes = {
     userLoginRequest: PropTypes.func.isRequired,
+    deleteErrorMessageSuccess: PropTypes.func.isRequired,
+    socialLoginSubmit: PropTypes.func.isRequired,
 };
 
 
@@ -143,4 +143,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { userLoginRequest, deleteErrorMessageSuccess })((LoginForm));
+export default connect(mapStateToProps, { userLoginRequest, deleteErrorMessageSuccess, socialLoginSubmit })((LoginForm));
